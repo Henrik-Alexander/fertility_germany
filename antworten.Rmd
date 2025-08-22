@@ -1,0 +1,138 @@
+---
+title: "Fertilität in der BRD" 
+author: "Henrik-Alexander Schubert"
+date: "2025-08-22"
+output: html_document
+bibliography: bibliography_germany.bib
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+
+
+# Set the graphic scheme
+theme_set(theme_bw(base_size = 12, base_family="serif"))
+
+theme_update(
+  panel.grid.major=element_line(linetype = "dotted"),
+  panel.grid.minor=element_blank()
+)
+
+```
+# Was ist die Geburtenrate?
+Die allgemeine Geburtenziffer (TFR) gibt an, *wie viele Kinder eine Frau im durchschnitt bekäme, wenn sie dem Geburtengeschehen aus einem spezifischen Jahr folgte.* Diese Zahl wird auch als synthetische Einheit bezeichnet, wie der Konjunktiv verdeutlicht, weil die Geburtenraten aus einem Jahr genutzt werden als würden sie sich über das Leben erstrecken. Demografen sprechen von einer Periodenzahl, welche sich auf Kalenderjahre beziehen. Diese Maße unterscheiden sich von Kohortenmaßen, welche sich auf die Geburtenzahlen am Ende der reproduktiven Phase einer Gruppe beziehen. Periodenraten werden häufig genutzt, weil sie das aktuelle Geschehen besser reflektieren, denn für die Kohortenmaße müsste man stets warten bis die reproduktive Phase komplett abgeschlossen ist.
+
+Periodenmaße haben einen großen Nachteil: Periodenmaße sind sehr sensitiv für Geburtenaufschübe und vorgezogene Geburten. Das liegt daran, dass Geburtenverschiebungen in den Periodenmaßen erscheinen wie Reduktionen der Geburten, aber in wirklichkeit bekommen Frauen die gleiche Anzahl an Geburten im Leben.
+
+
+
+
+# Wie sieht der Abfall der Geburtenrate aus?
+
+```{r}
+# When did the decline start?
+load("raw/deu_stfd_sa.Rda")
+
+# Plot the TFR trend
+fert_trend <- fert_sa_stfd %>% 
+  select(Year, starts_with("TFR")) %>% 
+  pivot_longer(cols=starts_with("TFR"), 
+               names_to="month", 
+               values_to="TFR",
+               names_prefix = "TFR") %>% 
+  mutate(month_nr = match(month, month.name),
+         date = as.Date(paste(Year, month_nr, "01", sep="-")),
+         change = TFR - lag(TFR), 
+         start_decline = ifelse(lag(change) < 0 & change < 0 & lead(change) < 0, 1, 0))
+
+
+# Plot the time-series for east, west and entire Germany
+tfr_ost <- read.table("raw/DEUTEtfrRR.txt", skip=2, header=T)
+tfr_west <- read.table("raw/DEUTWtfrRR.txt", skip=2, header=T)
+tfr_brd <- read.table("raw/DEUTNPtfrRR.txt", skip=2, header=T)
+
+```
+
+Der Abfall der Geburtenrate ist ein junges Phänomen in der Bundesrepublik Deutschland. Zwischen 1975 und 2010 war die Geburtenrate relativ stabil auf niedrigem Niveau, wie die schwarze Linie in Grafik \@ref(fig:trend-fertility) verdeutlicht. In der BRD schwankte die TFR zwischen `r min(tfr_brd$TFR[tfr_brd$Year<2010])` und `r max(tfr_brd$TFR[tfr_brd$Year<2010])`. Dieses Niveau ist niedriger als 2.1, das sogenannte Selbsterhaltungsniveau, sodass die BRD bereits seit den frühen 1970ern schrumpfen würde, sofern es keine positive Nettomigration gäbe.   Jedoch, wischen 2010 und 2021 stieg die TFR wieder von `r tfr_brd$TFR[tfr_brd$Year==2010]` auf `r tfr_brd$TFR[tfr_brd$Year==2017]` (für 2017), sie auch Grafik \@ref(fig:short-term-trend). Wenn man die Zeitreihe nach Ost- und Westdeutschland aufteilt, dann sticht einerseits die Kontinuität in Westdeutschland (gelbe Linie in Grafik @\ref(fig:trend-fertility)) ins Auge, aber auch die Votalität in Ostdeutschland (gelbe Linie in Grafik @\ref(fig:trend-fertility)). Die TFR in Westdeutschland schwankte gering zwischen `r min(tfr_west$TFR[tfr_west$Year<2010 & tfr_west$Year >1975])` und `r max(tfr_west$TFR[tfr_west$Year<2010 & tfr_west$Year >1975])`. Diese Kontinuit lässt sich auch in der Österreich und der Schweiz finden. Dagegen zeigt Ostdeutschland ein vergleichbares Muster zu Osteuropäischen Ländern, vor Allem der Geburtenabsturz in den frühen 1990er Jahren ist für diese Länder ein Characteristikum. Die TFR in Ostdeutschland schwankte dagegen stark zwischen `r min(tfr_ost$TFR[tfr_ost$Year<2010 & tfr_ost$Year >1975])` und `r max(tfr_ost$TFR[tfr_ost$Year<2010 & tfr_ost$Year >1975])`. Diese Unterschiede in der TFR zwischen Ost- und Westdeutschland sind jedoch seit 2005 vernachläßigbar.
+
+
+```{r trend-fertility, fig.caption="Trend in den allgemeinen Geburtenraten"}
+
+# Plot the TFR
+ggplot() + 
+  geom_vline(xintercept=1990) +
+  geom_line(data=tfr_ost, aes(x=Year, y=TFR, colour="Ostdeutschland"), linewidth=1.1) +
+  geom_line(data=tfr_west, aes(x=Year, y=TFR, colour="Westdeutschland"), linewidth=1.1) +
+  geom_line(data=tfr_brd, aes(x=Year, y=TFR, colour="BRD"), linewidth=1.4) +
+  scale_colour_manual("",values=c("black", "darkred",  "gold")) +
+  scale_y_continuous(n.breaks=12) +
+  scale_x_continuous(n.breaks=12) +
+  coord_cartesian(xlim=c(1975, 2018), ylim=c(0.75, 2), expand = F) +
+  annotate(geom="text", label="Pronatalistische Massnahmen in der DDR", x=1980, y=1.95, hjust="left", colour="darkred") +
+  annotate(geom="text", label="Geburteneinbruch nach \nder Wiedervereinigung", x=1996, y=0.95, hjust="left", colour="darkred") +
+  guides(colour=guide_legend(position="bottom"))
+
+```
+
+
+Für den Zeitraum zwischen 2012 und 2025 gibt es sogar monatliche Geburtenraten, die in Grafik \@ref(fig:short-term-trend) dargestellt sind. Dieser Zeitraum lässt sich grob in drei abschnitte Unterteilen:
+
+1. 2012-2018: Anstieg der Geburtenrate
+2. 2018-2021: Stagnierende Geburtenraten
+3. 2021-2025: Rückgang der Geburtenraten
+
+Leider gbit es für den Zeitraum noch keine Altersspezifische Geburtenraten, aber es lässt sich vermuten basierend auf Ergebnissen aus anderen Ländern, dass der letzte Rückgang der GEburtenraten eine Mischung aus weniger Geburten und einem Geburtenaufschub ist.
+
+```{r short-term-trend}
+# Plot the fertility trend
+ggplot(data=fert_trend, aes(x=date, y=TFR, colour=change)) +
+  geom_vline(data=subset(fert_trend, start_decline==1), aes(xintercept=date)) +
+  geom_line(linewidth=1.5) +
+  scale_x_date("Year", date_breaks="year", date_labels="%Y", expand = c(0, 0)) +
+  scale_y_continuous("Total Fertility Rate", n.breaks=10) +
+  scale_colour_gradient2("Jährliche Veränderung", midpoint=0, mid="grey") +
+  guides(colour=guide_colourbar(position="bottom")) +
+  theme(
+    legend.key.width=unit(2, "cm")
+  )
+  
+
+
+
+```
+
+
+
+
+
+> 1.  Welche Hauptursachen sehen Sie für den derzeit zu beobachtenden Rückgang
+der Geburtenrate in Deutschland?
+
+
+[@billari2019b] was confused.
+@bujard2024 says, it was the
+
+
+> 2.  In welchem Maße wirken sich wirtschaftliche und soziale Faktoren – etwa
+Kinderbetreuungskosten oder Erwerbsbeteiligung der Eltern – auf die
+Familienplanung aus?
+
+
+> 3.  Welche Rolle spielen kulturelle Normen, Wertvorstellungen und
+Lebensstile bei der Entscheidung für oder gegen Kinder?
+
+
+> 4.  Welche politischen oder gesellschaftlichen Maßnahmen erachten Sie als
+besonders wirksam, um dem negativen Trend entgegenzusteuern und wie lassen
+sich Erfolge oder Misserfolge dieser Initiativen Ihrer Meinung nach am besten
+messen?
+
+
+> 5.  Wie beurteilen Sie die langfristigen wirtschaftlichen und
+gesellschaftlichen Folgen einer dauerhaft niedrigen Geburtenrate?
+
+
+> 6.  Können Sie uns aktuelle Studien, Statistiken oder Fachpublikationen
+empfehlen, die Ihre Einschätzungen untermauern?
