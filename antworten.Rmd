@@ -83,7 +83,7 @@ Für den Zeitraum zwischen 2012 und 2025 gibt es sogar monatliche Geburtenraten,
 2. 2018-2021: Stagnierende Geburtenraten
 3. 2021-2025: Rückgang der Geburtenraten
 
-Leider gbit es für den Zeitraum noch keine Altersspezifische Geburtenraten, aber es lässt sich vermuten basierend auf Ergebnissen aus anderen Ländern, dass der letzte Rückgang der GEburtenraten eine Mischung aus weniger Geburten und einem Geburtenaufschub ist.
+Der Rückgang in den letzten Jahren auf ein Niveau um die 1.35 Kinder pro Frau ist ein niedriger Wert für die Bundrepublik, aber in den frühen 1990er Jahren lag die allgemeine Geburtenziffer ebenfalls unter 1.35. So lag die TFR in 1994 bei `r tfr_brd$TFR[tfr_brd$Year==1994]`. 
 
 ```{r short-term-trend}
 # Plot the fertility trend
@@ -97,42 +97,70 @@ ggplot(data=fert_trend, aes(x=date, y=TFR, colour=change)) +
   theme(
     legend.key.width=unit(2, "cm")
   )
-  
-
-
-
 ```
 
 
-
+# Fragen und Antworten
 
 
 > 1.  Welche Hauptursachen sehen Sie für den derzeit zu beobachtenden Rückgang
 der Geburtenrate in Deutschland?
 
 
-[@billari2019b] was confused.
-@bujard2024 says, it was the
+Der Geburtenrückgang seit 2021 ist vermutlich eine Mischung aus einer Reduktion an Geburten und einem Geburtenaufschub. Zumindest verweist die zeitliche Überschneidung mit der Coronapandemie auf wachsende Verunsicherung hin. Leider gbit es für den Zeitraum noch keine Altersspezifische Geburtenraten, aber es lässt sich vermuten basierend auf Ergebnissen aus anderen Ländern, dass der letzte Rückgang der Geburtenraten eine Mischung aus weniger Geburten und einem Geburtenaufschub ist. @bujard2024 findet, dass der Geburtenrückgang nicht mit ökonomischen oder gesundheitlichen Entwicklungen korreliert, aber mit dem Ausrollen von Impfkampanien. Die Autoren spekulieren, dass Paare das Kinderkriegen temporär aufgeschoben haben, ume erst noch eine Corona-Schutzimpfung zu sichern. Jedoch diskutieren die Autoren ebenfalls, ob die stressige Zeit und die ökonomischen Auswirkungen der Pandemie und des Ukrainekriegs eventuell den Aufschub verstetigen und zu weniger Geburten führen. Es lässt sich aktuell noch nicht final beantworten, ob die aufgeschobenen Geburten zu einem späteren Zeitpunkt noch nachgeholt werden. Jedenfalls deutet der anhaltende Geburtenrückgang, zwischen 2021 und 2025 auf einen tatsächlichen Rückgang der Geburten hin. Jedoch hebt das @statistischesbundesamt2025 hervor, dass sich der Geburtenrückgang bereits abschwächt, und in 2024 nur noch 2% betrug, im Vergleich zu den 7% und 9% Rückgang aus den Vorjahren.
+
+
 
 
 > 2.  In welchem Maße wirken sich wirtschaftliche und soziale Faktoren – etwa
 Kinderbetreuungskosten oder Erwerbsbeteiligung der Eltern – auf die
 Familienplanung aus?
 
+Wirtschaftliche und soziale Faktoren spielen eine wichtige Rolle für die Geburtenraten. Durch die breite Verfügbarkeit von effizienten Verhütungsmittel lässt sich die Reproduktion zuverlässig kontrollieren, sodass strukturelle und normative Faktoren eine große Rolle für kurzfristige Entwicklungen spielen.
+
+Die wirtschaftliche Situation beeinflusst das Geburtenverhalten hauptsächlich auf zwei Wege, siehe zu einem generellen Überblick @sobotka2011: 
+  1. Durch den *direkten Einfluss* auf Arbeitslosigkeit und das Einkommen, beeinflusst die wirtschaftliche Situation die Resourcen eines Paares für ein Kind zu sorgen.
+  2. Durch einen *indirekten Einfluss* auf das Geführ der Absicherung und Planbarkeit in der Zukunft.
+
+Die institutionelle Kinderbetreuung spielt eine zunehmen wichtigere Rolle, weil die Bildung und Arbeitsbeteiligung von Frauen seit den 1970ern stetig ansteigt. Im ersten Schritt hat die ansteigende Erwerbsbeteiligung von Frauen einen Konflikt zwischen Familie und Arbeit verstärkt, was von @goldscheider2015 als erste Phase der Gender Revolution theoresiert wurde. Dieser Konflikt kann aber potentiell durch staatliche oder familiere Akteure neutralisiert werden. Der staatliche Akteur kann beispielsweise preiswerte, verfügbare, erreichbare und ausreichende Kindertagestätten zur Verfügung stellen, sodass sich die Zeit- und Aufgabenkonflikte der Müttererwerbstätigkeit minimieren. Alternativ kann die Familie unterstützen, indem zum Beispiel die Väter einen größeren Betreuungsanteil übernehmen. @bmbfsfj2021 zeigt zumindest, dass Väter gerne mehr Zeit mit den Kindern verbringen würden.
 
 > 3.  Welche Rolle spielen kulturelle Normen, Wertvorstellungen und
 Lebensstile bei der Entscheidung für oder gegen Kinder?
 
+Kulturelle Faktoren sind ebenfalls von großer Bedeutung, jedoch lässt sich hinterfragen, ob langsame kulturelle Entwicklungen einen so abrupten und starken Abfall der Geburtenrate erklären könnten. Ich würde zumindest argumentieren, dass kulturelle Entwicklungen nicht alleine verantworlich sein können, weil der Abfall dann langsamer und länger fortschreiten würde. Hinsichtlich der kulturellen Faktoren steht vor Allem die Theorie des zweiten demografischen Übergangs von @vandekaa1987 und @lesthaeghe1988 im Zentrum der Diskussion. @kearney2022 argumentiert zum Beispiel, dass diese Theorie am besten den Geburtenrückgang in den Vereinigten Staaten von Amerika erklären könnte.
 
 > 4.  Welche politischen oder gesellschaftlichen Maßnahmen erachten Sie als
 besonders wirksam, um dem negativen Trend entgegenzusteuern und wie lassen
 sich Erfolge oder Misserfolge dieser Initiativen Ihrer Meinung nach am besten
 messen?
 
+Politische Maßnahmen in der Vergangenheit haben kaum die Geburtenrate beeinflusst, und meistens führten die Maßnahmen nur dazu, dass Kinder vorgezogen wurden, aber nicht mehr Kinder geboren worden sind [@]. Ungarn, Japan, Südkorea, und Russland sind Länder, welche bereits pronatalistische Maßnahmen eingeführt haben, die bisher erfolglos geblieben sind.
+
+
+Politische und gesellschaftliche Maßnahmen können potentiell darauf abzielen, dass Erwachsene mehr Kinder haben wollen (Fertilitätsabsichten) oder das Paare ihre Fertilitätsabsichten besser realisieren (Fertilitätsverhalten). Kulturelle Entwicklungen zu einer verstärkten Individuealisierung stehem dem ersten Ziel entgegen. Das zweite Ziel hält mehr Potential. In der BRD wären flexible Arbeitszeiten für Mütter, flexible und lange Öffnungszeiten von Kindertagesstätten, und flexible Lösungen für die Herausforderungen von jungen Familien schaffen.
+
 
 > 5.  Wie beurteilen Sie die langfristigen wirtschaftlichen und
 gesellschaftlichen Folgen einer dauerhaft niedrigen Geburtenrate?
 
+Die langfristigen Bevölkerungsentwicklungen sind nicht ganz eindeutig abzuschätzen, weil es sehr stark darauf ankommt, wie die Gesellschaft auf die niedrigen und fallenden Geburtenraten reagiert. Es gibt drohende Herausforderungen im Bereich des Arbeitsmarktes und des Rentensystems im Zug der Alterung der Gesellschaft, aber diese können mit einer Vorausschauenende Politk gemeistert werden. Außerdem kann es positive Entwicklungen für das Klima, die Wohnungsmärkte in Ballungszentren und Chancen auf dem Arbeitsmarkt für junge Leute geben.
+
+- Schrumpfen und Alterung der Gesellschaft: Seit 1972 gibt es mehr Sterbefälle in Deutschland als Geburten, also würde die deutsche Bevölkerung bereits seit über 50 Jahren schrumpfen, wenn es keine Nettomigration gäbe. Jedoch ist die Bevölkerung im gleichen Zeitraum kontinuierlich gewachsen, ausgenommen von den zwei Coronajahren. Somit bedeutet eine niedrige Geburtenrate nicht zwangsläufig eine schrumpfende Gesellschaft. Ein Gegenbeispiel dazu ist Japan, wo aufgrund der Insellage und der kulturellen Eigenart die Immigration sehr gering ist und nicht den Bevölkerungsrückgang aufhalten kann. Japan ist auch eines der ältesten Länder der Welt, was an der niedrigen Geburtenrate und der hohen Lebenerwartung liegt. Jedoch ist Japan trotz Alterung und Bevölkerungsrückgang eine funktionierende Gesellschaft. Die Herausforderungen in der Pflege und auf dem Arbeitsmarkt werden durch neue Technologien gelöst.
+
+- Rente:
+
+- Wirtschaftsleistung: Eine Befürchtung ist, dass eine alternde Gesellschaft weniger produktiv ist und deswegen stagnieren und letztendlich verarmen könnte. Die Argumentation beruht auf dem Lebenszyclus der Produktivität, wonach Menschen in jungen und späten Jahren vor allem konsumieren, aber wenig produzieren, und ausschließlich zwischen 20 und 70 produktiv zur Gesellschaft beitragen [@lee2014]. Jedoch hat sich das Lebenszyclusmodell aus verkürzt herausgestellt. Erstens, kann der produzierende Mittelbau der Alterspyramide produktiver arbeiten, und somit die sinkende Quantität durch Qualität kompensieren. Hierfür ist vor Allem die Ausbildung der jungen Leute von großer Bedeutung [@myrskyla2024]. Außerdem, alte Menschen können sehr wohl kreativ und produktiv arbeiten, besonders wenn sie gesund sind. Deswegen wird die Gesundheitsprophylaxe von großer Bedeutung für die zukünftige Wirtschaftskraft sein.
+
+- Eine alternde Gesellschaft ist zuvorderst ein Erfolg, denn sie bedeutet, dass Menschen länger und meistens auch gesünder Leben. Eine Gesellschaft mit weniger Kindern kann neben den Herausforderungen auch positive Auswirkungen haben. So kann in die einzelnen Kinder mehr Zeit, Resourcen und Geld investiert werden, weil es anteilig weniger sind. Außerdem können sinkende Geburtenraten einen Beitrag zu der Verhinderung des Klimawandels leisten. Abschließend können kleine Jahrgänge den Druck von den urbanen Wohnungsmärkten nehmen. Eine Diskussion von den positiven Seiten von sinkenden Geburtenraten findet sich in @skirbekk2022.
+
+
+Abschließend lässt sich festhalten, dass große Herausforderungen mit den sinkenden Geburtenraten einhergehen. Jedoch hat eine vorausschauende, evidenzbasierte und gemeinschaftliche Politik und Wirtschaft die Möglichkeit diese Herausforderungen zu meistern.
+
 
 > 6.  Können Sie uns aktuelle Studien, Statistiken oder Fachpublikationen
 empfehlen, die Ihre Einschätzungen untermauern?
+
+
+Anbei finden Sie eine Liste mit aktuellen und hoch-qualitativen Studien zu Geburtenentwicklungen in der Bundesrepublik Deutschland.
+
+# Referenzen
