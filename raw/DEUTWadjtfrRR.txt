@@ -1,0 +1,10 @@
+West Germany, Tempo-adjusted total fertility rates, Bongaarts-Feeney method
+Last modified: 04/02/2019
+Year    adjTFR
+2010     1.671
+2011     1.584
+2012     1.590
+2013     1.624
+2014     1.585
+2015     1.484
+2016     1.644

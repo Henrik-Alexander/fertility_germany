@@ -1,0 +1,7 @@
+East Germany, Period table mean ages at birth by birth order
+Last modified: 04/02/2019
+Year     TMAB    TMAB1    TMAB2    TMAB3    TMAB4   TMAB5p
+1986    24.91    22.74    26.13    29.29    31.05    33.15
+1987    25.12    22.87    26.21    29.41    31.40    33.50
+1988    25.18    23.04    26.34    29.55    31.48    33.50
+1989    25.27    23.24    26.51    29.60    31.48    33.56

@@ -1,0 +1,7 @@
+East Germany, Parity- and age-adjusted total fertility rate
+Last modified: 04/02/2019
+Year    PATFR   PATFR1   PATFR2   PATFR3   PATFR4  PATFR5p
+1986    1.753    0.900    0.618    0.166    0.045    0.024
+1987    1.787    0.899    0.630    0.180    0.050    0.028
+1988    1.730    0.887    0.609    0.166    0.044    0.024
+1989    1.652    0.871    0.575    0.148    0.038    0.021

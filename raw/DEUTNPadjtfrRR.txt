@@ -1,0 +1,10 @@
+Germany, Tempo-adjusted total fertility rates, Bongaarts-Feeney method
+Last modified: 04/02/2019
+Year    adjTFR
+2010     1.675
+2011     1.597
+2012     1.594
+2013     1.631
+2014     1.598
+2015     1.485
+2016     1.647
