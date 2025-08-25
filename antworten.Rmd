@@ -2,7 +2,10 @@
 title: "Fertilität in der BRD" 
 author: "Henrik-Alexander Schubert"
 date: "2025-08-22"
-output: word_document
+output: 
+  bookdown::pdf_document2
+  bookdown::html_document2
+  bookdown::word_document2
 bibliography: bibliography_germany.bib
 editor_options: 
   chunk_output_type: console
@@ -58,10 +61,10 @@ tfr_brd <- read.table("raw/DEUTNPtfrRR.txt", skip=2, header=T)
 Der Abfall der Geburtenrate ist ein junges Phänomen in der Bundesrepublik Deutschland. Zwischen 1975 und 2010 war die Geburtenrate relativ stabil auf niedrigem Niveau, wie die schwarze Linie in Grafik \@ref(fig:trend-fertility) verdeutlicht. In der BRD schwankte die TFR zwischen `r min(tfr_brd$TFR[tfr_brd$Year<2010&tfr_brd$Year>1975])` und `r max(tfr_brd$TFR[tfr_brd$Year<2010&tfr_brd$Year>1975])`. Dieses Niveau ist niedriger als 2.1, das sogenannte Selbsterhaltungsniveau, sodass die BRD bereits seit den frühen 1970ern schrumpfen würde, sofern es keine positive Nettomigration gäbe. Jedoch, wischen 2010 und 2021 stieg die TFR wieder von `r tfr_brd$TFR[tfr_brd$Year==2010]` auf `r tfr_brd$TFR[tfr_brd$Year==2017]` (für 2017), sie auch Grafik \@ref(fig:short-term-trend). 
 
 
-Wenn man die Zeitreihe nach Ost- und Westdeutschland aufteilt, dann sticht einerseits die Kontinuität in Westdeutschland (gelbe Linie in Grafik @\ref(fig:trend-fertility)) ins Auge, aber auch die Votalität in Ostdeutschland (gelbe Linie in Grafik @\ref(fig:trend-fertility)). Die TFR in Westdeutschland schwankte gering zwischen `r min(tfr_west$TFR[tfr_west$Year<2010 & tfr_west$Year >1975])` und `r max(tfr_west$TFR[tfr_west$Year<2010 & tfr_west$Year >1975])` Kindern je Frau. Diese Kontinuit lässt sich in unseren deutschsprachigen Nachbarländern Österreich und der Schweiz finden. Dagegen zeigt Ostdeutschland ein vergleichbares Muster zu Osteuropäischen Ländern, vor Allem der abrupte Geburtenabsturz in den frühen 1990er Jahren und der graduelle Anstieg in den späten 1990ern und frühen 2000er Jahren ist für diese Länder characteristisch. Die TFR in Ostdeutschland schwankte dagegen stark zwischen `r min(tfr_ost$TFR[tfr_ost$Year<2010 & tfr_ost$Year >1975])` und `r max(tfr_ost$TFR[tfr_ost$Year<2010 & tfr_ost$Year >1975])`. Diese Unterschiede in der TFR zwischen Ost- und Westdeutschland sind jedoch seit 2005 vernachläßigbar.
+Wenn man die Zeitreihe nach Ost- und Westdeutschland aufteilt, dann sticht einerseits die Kontinuität in Westdeutschland (gelbe Linie in Grafik \@ref(fig:trend-fertility)) ins Auge, aber auch die Votalität in Ostdeutschland (gelbe Linie in Grafik \@ref(fig:trend-fertility)). Die TFR in Westdeutschland schwankte gering zwischen `r min(tfr_west$TFR[tfr_west$Year<2010 & tfr_west$Year >1975])` und `r max(tfr_west$TFR[tfr_west$Year<2010 & tfr_west$Year >1975])` Kindern je Frau. Diese Kontinuit lässt sich in unseren deutschsprachigen Nachbarländern Österreich und der Schweiz finden. Dagegen zeigt Ostdeutschland ein vergleichbares Muster zu Osteuropäischen Ländern, vor Allem der abrupte Geburtenabsturz in den frühen 1990er Jahren und der graduelle Anstieg in den späten 1990ern und frühen 2000er Jahren ist für diese Länder characteristisch. Die TFR in Ostdeutschland schwankte dagegen stark zwischen `r min(tfr_ost$TFR[tfr_ost$Year<2010 & tfr_ost$Year >1975])` und `r max(tfr_ost$TFR[tfr_ost$Year<2010 & tfr_ost$Year >1975])`. Diese Unterschiede in der TFR zwischen Ost- und Westdeutschland sind jedoch seit 2005 vernachläßigbar.
 
 
-```{r trend-fertility, fig.caption="Trend in den allgemeinen Geburtenraten"}
+```{r trend-fertility, fig.cap="Trend in den allgemeinen Geburtenraten"}
 
 # Plot the TFR
 ggplot() + 
@@ -88,7 +91,7 @@ Für den Zeitraum zwischen 2012 und 2025 gibt es sogar monatliche Geburtenraten,
 
 Der Rückgang in den letzten Jahren auf ein Niveau um die 1.35 Kinder pro Frau ist ein niedriger Wert für die Bundrepublik, aber in den frühen 1990er Jahren lag die allgemeine Geburtenziffer ebenfalls unter 1.35. So lag die TFR in 1994 bei `r tfr_brd$TFR[tfr_brd$Year==1994]`. 
 
-```{r short-term-trend}
+```{r short-term-trend, fig.cap="Trend in the monthly seasonally-adjsuted total fertility rate. Source: Short-Term Fertility Fluctuations."}
 # Plot the fertility trend
 ggplot(data=fert_trend, aes(x=date, y=TFR, colour=change)) +
   geom_vline(data=subset(fert_trend, start_decline==1), aes(xintercept=date)) +
